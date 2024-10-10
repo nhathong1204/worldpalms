@@ -1,0 +1,42 @@
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+<div class="bb-top-contact">
+    <div class="bb-cart-title">
+        <h4>My cart</h4>
+        <a href="javascript:void(0)" class="bb-cart-close" title="Close Cart"></a>
+    </div>
+</div>
+<div class="bb-cart-box item">
+    <ul class="bb-cart-items">
+        {% for product_id, item in cart_data.items %}
+        <li class="cart-sidebar-list">
+            <a href="javascript:void(0)" class="cart-remove-item delete-product" data-product="{{ product_id }}"><i class="ri-close-line"></i></a>
+            <a href="javascript:void(0)" class="bb-cart-pro-img">
+                <img src="{{ item.image }}" alt="product image">
+            </a>
+            <div class="bb-cart-contact">
+                <a href="{% url 'core:product-detail' item.pid %}" class="bb-cart-sub-title">{{ item.title }}</a>
+                <span class="cart-price">
+                    <span class="new-price">{{ item.qty }} x {{ item.price|floatformat:0|intcomma:False }}đ</span>
+                </span>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="bb-bottom-cart">
+    <div class="cart-sub-total">
+        <table class="table cart-table">
+            <tbody>
+                <tr>
+                    <td class="title">Total :</td>
+                    <td class="price">{{ cart_total_amount|floatformat:0|intcomma:False }}đ</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="cart-btn">
+        <a href="{% url 'core:place-order' %}" class="bb-btn-2">{% trans 'Place Order' %}</a>
+    </div>
+</div>

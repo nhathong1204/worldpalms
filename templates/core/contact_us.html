@@ -1,0 +1,81 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+{% block meta_header %}
+    <title>{% trans 'Contact' %} - Worldpalms Vina</title>
+    <meta property="og:title" content="{% trans 'Contact' %} - Worldpalms Vina" />
+    <meta property="og:description" content="{% trans 'We import full packages of healthcare products and functional foods from South Korea and distribute them wholesale and retail through official channels in Vietnam.' %}" />
+    <meta property="og:url" content="{% url 'core:contact-us' %}" />
+    <meta property="og:image" content="{% static 'assets/img/logo/logo.png' %}" />
+{% endblock meta_header %}
+{% block content %}
+    <!-- Breadcrumb -->
+    <section class="section-breadcrumb margin-b-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row bb-breadcrumb-inner">
+                        <div class="col-md-12 col-sm-12"></div>
+                            <ul class="bb-breadcrumb-list">
+                                <li class="bb-breadcrumb-item"><a href="{% url 'core:index' %}">{% trans 'Home' %}</a></li>
+                                <li><i class="ri-arrow-right-double-fill"></i></li>
+                                <li class="bb-breadcrumb-item active">{% trans 'Contact Us' %}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact us -->
+    <section class="section-contact padding-tb-50">
+        <div class="container">
+            <div class="row mb-minus-24">
+                <div class="col-12">
+                    <div class="section-title bb-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                        <div class="section-detail">
+                            <h2 class="bb-title">{% trans "Get In <span>Touch</span>" %}</h2>
+                            <p>{% trans "Please select a topic below related to you inquiry. If you don't fint what you need, fill out our contact form." %}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12 mb-24" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+                    <div class="bb-contact-form">
+                        <p class="text-success" id="message_sent" style="text-align: center; font-size: 20px; font-weight: bold;"></p>
+                        <form method="POST" id="contact-form-ajax" action="">
+                            {% csrf_token %}
+                            <div class="bb-contact-wrap">
+                                <input type="text" name="first_name" id="first_name" placeholder="{% trans 'Enter Your First Name' %}" required>
+                            </div>
+                            <div class="bb-contact-wrap">
+                                <input type="text" name="last_name" id="last_name" placeholder="{% trans 'Enter Your Last Name' %}" required>
+                            </div>
+                            <div class="bb-contact-wrap">
+                                <input type="email" name="email" id="email" placeholder="{% trans 'Enter Your Email' %}" required>
+                            </div>
+                            <div class="bb-contact-wrap">
+                                <input type="text" name="phone" id="phone" placeholder="{% trans 'Enter Your Phone Number' %}" required>
+                            </div>
+                            <div class="bb-contact-wrap">
+                                <input type="text" name="subject" id="subject" placeholder="{% trans 'Enter Subject' %}" required>
+                            </div>
+                            <div class="bb-contact-wrap">
+                                <textarea name="message" id="message" placeholder="{% trans 'Please leave your comments here...' %}" required></textarea>
+                            </div>
+                            <div class="bb-contact-button">
+                                <button class="bb-btn-2" type="submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12 mb-24" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
+                    <div class="bb-contact-maps">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.166523004802!2d106.64531197586888!3d10.7985549587835!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175294938bdb6c7%3A0xfa1ff776426117e5!2zNjYgTmd1eeG7hW4gQsOhIFR1eeG7g24sIFBoxrDhu51uZyAxMiwgVMOibiBCw6xuaCwgSOG7kyBDaMOtIE1pbmgsIFZpZXRuYW0!5e0!3m2!1sen!2s!4v1728058565538!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

@@ -1,0 +1,150 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+{% block meta_header %}
+    <title>{% trans 'About' %} - Worldpalms Vina</title>
+    <meta property="og:title" content="{% trans 'About' %} - Worldpalms Vina" />
+    <meta property="og:description" content="{% trans 'We import full packages of healthcare products and functional foods from South Korea and distribute them wholesale and retail through official channels in Vietnam.' %}" />
+    <meta property="og:url" content="{% url 'core:about-us' %}" />
+    <meta property="og:image" content="{% static 'assets/img/logo/logo.png' %}" />
+{% endblock meta_header %}
+{% block content %}
+    <!-- Breadcrumb -->
+    <section class="section-breadcrumb margin-b-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row bb-breadcrumb-inner">
+                        <div class="col-md-12 col-sm-12"></div>
+                            <ul class="bb-breadcrumb-list">
+                                <li class="bb-breadcrumb-item"><a href="{% url 'core:index' %}">{% trans 'Home' %}</a></li>
+                                <li><i class="ri-arrow-right-double-fill"></i></li>
+                                <li class="bb-breadcrumb-item active">{% trans 'About Us' %}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="section-about padding-tb-50">
+        <div class="container">
+            <div class="row mb-minus-24">
+                <div class="col-lg-6 col-12 mb-24">
+                    <div class="bb-about-img">
+                        <img src="{% static 'assets/img/about/one.png' %}" alt="about-one">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12 mb-24">
+                    <div class="bb-about-contact">
+                        <div class="section-title" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                            <div class="section-detail">
+                                <h2 class="bb-title">{% trans 'About the' %} <span>WorldPalms Vina</span></h2>
+                            </div>
+                        </div>
+                        <div class="about-inner-contact" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+                            <h4>WorldPalms Vina</h4>
+                            <p>Worldpalms Vina được thành lập vào năm 2020 bởi một nhà doanh nghiệp đến từ Hàn Quốc với sứ mệnh mang đến sự phục hồi và cải thiện sức khỏe cho khách hàng. Chúng tôi tập trung vào việc cung cấp các sản phẩm chất lượng cao, được chọn lọc kỹ càng từ những nguồn nguyên liệu tốt nhất.</p>
+                            <p>Worldpalms Vina cam kết đảm bảo tính an toàn và hiệu quả của các sản phẩm thông qua quy trình sản xuất và kiểm soát chất lượng nghiêm ngặt.</p>
+                        </div>
+                        <div class="bb-vendor-rows row mb-minus-24" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
+                            <div class="col-sm-4 mb-24">
+                                <div class="bb-vendor-box">
+                                    <div class="bb-count">
+                                        <h5 class="counter">200 +</h5>
+                                    </div>
+                                    <div class="inner-text">
+                                        <p>vendors</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 mb-24">
+                                <div class="bb-vendor-box">
+                                    <div class="bb-count">
+                                        <h5 class="counter">654k +</h5>
+                                    </div>
+                                    <div class="inner-text">
+                                        <p>Sales</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 mb-24">
+                                <div class="bb-vendor-box">
+                                    <div class="bb-count">
+                                        <h5 class="counter">587k +</h5>
+                                    </div>
+                                    <div class="inner-text">
+                                        <p>Customers</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section-services padding-tb-50">
+        <div class="container">
+            <div class="row mb-minus-24">
+                <div class="col-12">
+                    <div class="section-title bb-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                        <div class="section-detail">
+                            <h2 class="bb-title">{% trans 'Our <span>Services</span>' %}</h2>
+                            <p>Chuyên nhập khẩu các sản phẩm thực phẩm chức năng, bổ sung dinh dưỡng từ Hàn Quốc và phân phối chính ngạch tại Việt Nam</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12 mb-24" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                    <div class="bb-services-box">
+                        <div class="services-img">
+                            <img src="{% static 'assets/img/services/1.png' %}" alt="services-1">
+                        </div>
+                        <div class="services-contact">
+                            <h4>Free Shipping</h4>
+                            <p>Free shipping on all Us order or above $200</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12 mb-24" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+                    <div class="bb-services-box">
+                        <div class="services-img">
+                            <img src="{% static 'assets/img/services/2.png' %}" alt="services-2">
+                        </div>
+                        <div class="services-contact">
+                            <h4>24x7 Support</h4>
+                            <p>Contact us 24 hours a day, 7 days a week</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12 mb-24" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
+                    <div class="bb-services-box">
+                        <div class="services-img">
+                            <img src="{% static 'assets/img/services/3.png' %}" alt="services-3">
+                        </div>
+                        <div class="services-contact">
+                            <h4>30 Days Return</h4>
+                            <p>Simply return it within 30 days for an exchange</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12 mb-24" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="800">
+                    <div class="bb-services-box">
+                        <div class="services-img">
+                            <img src="{% static 'assets/img/services/4.png' %}" alt="services-4">
+                        </div>
+                        <div class="services-contact">
+                            <h4>Payment Secure</h4>
+                            <p>Contact us 24 hours a day, 7 days a week</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

@@ -1,0 +1,215 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+{% block meta_header %}
+    <title>{% trans 'Product Detail' %} - Worldpalms Vina</title>
+    <meta property="og:title" content="{% trans 'Product Detail' %} - Worldpalms Vina" />
+    <meta property="og:description" content="{% trans 'We import full packages of healthcare products and functional foods from South Korea and distribute them wholesale and retail through official channels in Vietnam.' %}" />
+    <meta property="og:url" content="{% url 'core:product-detail' %}" />
+    <meta property="og:image" content="{% static 'assets/img/logo/logo.png' %}" />
+{% endblock meta_header %}
+{% block content %}
+    <!-- Breadcrumb -->
+    <section class="section-breadcrumb margin-b-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row bb-breadcrumb-inner">
+                        <div class="col-md-12 col-sm-12">
+                            <ul class="bb-breadcrumb-list">
+                                <li class="bb-breadcrumb-item"><a href="{% url 'core:index' %}">{% trans 'Home' %}</a></li>
+                                <li><i class="ri-arrow-right-double-fill"></i></li>
+                                <li class="bb-breadcrumb-item active">{% trans 'Product Detail' %}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- product page -->
+    <section class="section-product padding-tb-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="bb-single-pro">
+                        <div class="row">
+                            <div class="col-lg-5 col-12 mb-24">
+                                <div class="single-pro-slider">
+                                    <div class="single-product-cover">
+                                        {% for p in p_image %}
+                                            <div class="single-slide zoom-image-hover">
+                                                <img class="img-responsive" src="{{ p.images.url }}"
+                                                    alt="product image">
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="single-nav-thumb">
+                                        {% for p in p_image %}
+                                            <div class="single-slide">
+                                                <img class="img-responsive" src="{{ p.images.url }}"
+                                                    alt="product image">
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-7 col-12 mb-24">
+                                <div class="bb-single-pro-contact">
+                                    <div class="bb-sub-title">
+                                        <h4>{{ product.title }}</h4>
+                                    </div>
+                                    <p>{{ product.description|safe|truncatechars:250 }}</p>
+                                    <div class="bb-single-price-wrap">
+                                        <div class="bb-single-price">
+                                            <div class="price">
+                                                <h5>
+                                                    <input type="hidden" class="current-product-price-{{ product.id }}" value="{{ product.price|floatformat:0 }}" />
+                                                    <span>{{ product.price|floatformat:0|intcomma:False }}</span>đ
+                                                    <span class="sale_off">{{ product.get_pecentage|floatformat:0 }}% Off</span>
+                                                    <span class="origin_price">{{ product.old_price|floatformat:0|intcomma:False }}đ</span>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bb-single-qty">
+                                        <div class="qty-plus-minus">
+                                            <input class="qty-input product-quantity-{{ product.id }}" type="text" name="bb-qtybtn" value="1">
+                                        </div>
+                                        <div class="buttons">
+                                            <input type="hidden" class="product-pid-{{ product.id }}" value="{{ product.pid }}">
+                                            <input type="hidden" class="product-image-{{ product.id }}" value="{{ product.image.url }}">
+                                            <input type="hidden" class="product-id-{{ product.id }}" value="{{ product.id }}">
+                                            <input type="hidden" class="product-title-{{ product.id }}" value="{{ product.title }}">
+                                            <a href="javascript:void(0)" data-index="{{ product.id }}" class="bb-btn-2 add-to-cart-btn">Add to cart</a>
+                                        </div>
+                                        <ul class="bb-pro-actions">
+                                            <li class="bb-btn-group">
+                                                <!-- <a href="javascript:void(0)" data-link-action="quickview" title="Quick view" data-bs-toggle="modal"
+                                                    data-bs-target="#bry_quickview_modal">
+                                                    <i class="ri-eye-line"></i>
+                                                </a> -->
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="bb-single-pro-tab">
+                                        <div class="bb-pro-tab">
+                                            <ul class="bb-pro-tab-nav nav">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" data-bs-toggle="tab" href="#detail">{% trans 'Description' %}</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-bs-toggle="tab" href="#information">{% trans 'Additional Information' %}</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-bs-toggle="tab" href="#reviews">{% trans 'Nutritional Value' %}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="detail">
+                                                <div class="bb-inner-tabs">
+                                                    <div class="bb-details">
+                                                        <div class="text_content">{{ product.description|safe }}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="information">
+                                                <div class="bb-inner-tabs">
+                                                    <div class="information">
+                                                        <div class="text_content">{{ product.additional_information|safe }}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="reviews">
+                                                <div class="bb-inner-tabs">
+                                                    <div class="bb-reviews">
+                                                        <div class="text_content">{{ product.nutritional_value|safe }}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related product section -->
+    <section class="section-related-product padding-tb-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title bb-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                        <div class="section-detail ">
+                            {% if productRelated %}
+                            <h2 class="bb-title">{% trans 'Related <span>Products</span>' %}</h2>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="bb-deal-slider">
+                        <div class="bb-deal-block owl-carousel">
+                            {% for p in productRelated %}
+                            <div class="bb-deal-card" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                                <div class="bb-pro-box">
+                                    <div class="bb-pro-img">
+                                        <a href="javascript:void(0)">
+                                            <div class="inner-img">
+                                                <img class="main-img" src="{{ p.image.url }}" alt="product image">
+                                                <img class="hover-img" src="{{ p.image.url }}" alt="product image">
+                                            </div>
+                                        </a>
+                                        <ul class="bb-pro-actions">
+                                            <!-- <li class="bb-btn-group">
+                                                <a href="javascript:void(0)"
+                                                    data-link-action="quickview" title="Quick view" data-bs-toggle="modal"
+                                                    data-bs-target="#bry_quickview_modal">
+                                                    <i class="ri-eye-line"></i>
+                                                </a>
+                                            </li> -->
+                                            <li  class="bb-btn-group">
+                                                <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{ p.id }}">
+                                                <input type="hidden" class="product-pid-{{ p.id }}" value="{{ p.pid }}">
+                                                <input type="hidden" class="product-image-{{ p.id }}" value="{{ p.image.url }}">
+                                                <input type="hidden" class="product-id-{{ p.id }}" value="{{ p.id }}">
+                                                <input type="hidden" class="product-title-{{ p.id }}" value="{{ p.title }}">
+                                                <a href="javascript:void(0)" title="Add to cart" class="add-to-cart-btn" data-index="{{ p.id }}">
+                                                    <i class="ri-shopping-bag-4-line"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="bb-pro-contact">
+                                        <div class="bb-pro-subtitle">
+                                            <a href="javascript:void(0)">{{ p.category.title }}</a>
+                                        </div>
+                                        <h4 class="bb-pro-title"><a href="{% url 'core:product-detail' p.pid %}">{{ p.title }}</a>
+                                        </h4>
+                                        <div class="bb-price">
+                                            <div class="inner-price">
+                                                <input type="hidden" class="current-product-price-{{ p.id }}" value="{{ p.price|floatformat:0 }}" />
+                                                <span class="new-price">{{ p.price|floatformat:0|intcomma:False }}đ</span>
+                                                <span class="old-price">{{ p.old_price|floatformat:0|intcomma:False }}đ</span>
+                                            </div>
+                                            <!-- <span class="last-items">1 Pack</span> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

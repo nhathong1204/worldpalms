@@ -1,0 +1,18 @@
+{% autoescape off %}
+
+Hi {{ user.username }},
+
+This is the email sent from Contact Form
+
+******************************************
+First Name: {{ first_name }}
+Last Name: {{ last_name }}
+Email: {{ email }}
+Phone: {{ phone }}
+Subject: {{ subject }}
+Message: {{ message }}
+******************************************
+
+Thanks.
+
+{% endautoescape %}

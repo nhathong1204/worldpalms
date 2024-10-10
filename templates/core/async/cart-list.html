@@ -1,0 +1,157 @@
+{% load static %}
+{% load humanize %}
+<div class="row mb-minus-24">
+    <div class="col-lg-4 mb-24">
+        <div class="bb-cart-sidebar-block aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+            <div class="bb-sb-title">
+                <h3>Confirm Address and Place Order</h3>
+            </div>
+            <form method="POST" id="contact-form-ajax" action="" style="border: 1px solid #eee; border-radius: 20px; padding: 30px;">
+                <div class="form-group mb-3">
+                    <label for="full_name">Full Name</label>
+                    <input type="text" class="form-control" name="full_name" id="full_name" placeholder="Enter Your Full Name" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Enter Your Email" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="phone">Phone Number</label>
+                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Your Phone Number" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="city">City</label>
+                    <select class="form-control" id="city" name="city" required>
+                        <option value="" selected>Choose city</option>
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="district">District</label>
+                    <select class="form-control" id="district" name="district" required>
+                        <option value="" selected>Choose district</option>
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="ward">Ward</label>
+                    <select class="form-control" id="ward" name="ward" required>
+                        <option value="" selected>Choose ward</option>
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" name="address" id="address" placeholder="Enter Your Address..." required>
+                </div>
+                <div class="form-group">
+                    <button class="bb-btn-2" type="submit">Place Order</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-8 mb-24">
+        <div class="bb-cart-table aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>quality</th>
+                        <th>Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product_id, item in cart_data.items %}
+                    <tr data-product="{{ product_id }}">
+                        <td>
+                            <a href="javascript:void(0)">
+                                <div class="Product-cart">
+                                    <img src="{{ item.image }}" alt="{{ item.title }}">
+                                    <span>{{ item.title }}</span>
+                                </div>
+                            </a>
+                        </td>
+                        <td>
+                            <span class="price">{{ item.price|floatformat:0|intcomma:False }}đ</span>
+                        </td>
+                        <td>
+                            <div class="qty-plus-minus">
+                                <div class="dec bb-qtybtn">-</div>
+                                <input class="qty-input product-quantity-{{ product_id }}" type="text" name="bb-qtybtn" value="{{ item.qty }}">
+                                <div class="inc bb-qtybtn">+</div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="subtotal">{{ item.subtotal|floatformat:0|intcomma:False }}đ</span>
+                        </td>
+                        <td>
+                            <div class="pro-remove">
+                                <a href="javascript:void(0)" class="delete-product" data-product="{{ product_id }}">
+                                    <i class="ri-delete-bin-line"></i>
+                                </a>
+                            </div>
+                        </td>
+
+                        <input type="hidden" class="item-title-{{ product_id }}" value="{{ item.title }}">
+                        <input type="hidden" class="item-price-{{ product_id }}" value="{{ item.price|floatformat:0 }}">
+                        <input type="hidden" class="item-qty-{{ product_id }}" value="{{ item.qty }}">
+                        <input type="hidden" class="item-subtotal-{{ product_id }}" value="{{ item.subtotal }}">
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tr style="background-color: #eee;">
+                    <td colspan="3">
+                        <strong style="float: right;">Total Amount</strong>
+                    </td>
+                    <td colspan="2">
+                        <input type="hidden" class="total_amount" value="{{ cart_total_amount|floatformat:0|intcomma:False }}">
+                        <strong>{{ cart_total_amount|floatformat:0|intcomma:False }}đ</strong>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+	var citis = document.getElementById("city");
+    var districts = document.getElementById("district");
+    var wards = document.getElementById("ward");
+    var Parameter = {
+    url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json", 
+    method: "GET", 
+    responseType: "application/json", 
+    };
+    var promise = axios(Parameter);
+    promise.then(function (result) {
+    renderCity(result.data);
+    });
+
+    function renderCity(data) {
+    for (const x of data) {
+        citis.options[citis.options.length] = new Option(x.Name, x.Id);
+    }
+    citis.onchange = function () {
+        district.length = 1;
+        ward.length = 1;
+        if(this.value != ""){
+        const result = data.filter(n => n.Id === this.value);
+
+        for (const k of result[0].Districts) {
+            district.options[district.options.length] = new Option(k.Name, k.Id);
+        }
+        }
+    };
+    district.onchange = function () {
+        ward.length = 1;
+        const dataCity = data.filter((n) => n.Id === citis.value);
+        if (this.value != "") {
+        const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+
+        for (const w of dataWards) {
+            wards.options[wards.options.length] = new Option(w.Name, w.Id);
+        }
+        }
+    };
+    }
+</script>

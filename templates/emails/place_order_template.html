@@ -1,0 +1,31 @@
+{% autoescape off %}
+{% load humanize %}
+Hi,
+
+Place order from user: [user.username]
+
+Address Information:
+******************************************
+Full Name: {{ full_name }}
+Email: {{ email }}
+Phone: {{ phone }}
+Address: {{ address }}
+Ward: {{ ward }}
+District: {{ district }}
+City: {{ city }}
+******************************************
+
+Place Order Information:
+******************************************
+{% for item in cart_data %}
+    Product Name: {{ item.title }}
+    Price: {{ item.price|floatformat:0|intcomma:False }}đ
+    Quantity: {{ item.qty }}
+    Amount: {{ item.subtotal|floatformat:0|intcomma:False }}đ
+{% endfor %}
+TOTAL AMOUNT: {{ total_amount }}
+******************************************
+
+Thanks.
+
+{% endautoescape %}

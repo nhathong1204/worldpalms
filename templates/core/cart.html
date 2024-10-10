@@ -1,0 +1,192 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+{% block meta_header %}
+    <title>{% trans 'Cart' %} - Worldpalms Vina</title>
+    <meta property="og:title" content="{% trans 'Cart' %} - Worldpalms Vina" />
+    <meta property="og:description" content="{% trans 'We import full packages of healthcare products and functional foods from South Korea and distribute them wholesale and retail through official channels in Vietnam.' %}" />
+    <meta property="og:url" content="{% url 'core:place-order' %}" />
+    <meta property="og:image" content="{% static 'assets/img/logo/logo.png' %}" />
+{% endblock meta_header %}
+{% block content %}
+    <!-- Breadcrumb -->
+    <section class="section-breadcrumb margin-b-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row bb-breadcrumb-inner">
+                        <div class="col-md-12 col-sm-12"></div>
+                            <ul class="bb-breadcrumb-list">
+                                <li class="bb-breadcrumb-item"><a href="{% url 'core:index' %}">{% trans 'Home' %}</a></li>
+                                <li><i class="ri-arrow-right-double-fill"></i></li>
+                                <li class="bb-breadcrumb-item active">{% trans 'Cart' %}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart -->
+    <section class="section-cart padding-tb-50" style="font-family: Arial, Helvetica, sans-serif;">
+        <div class="container" id="cart-list">
+            <div class="row mb-minus-24">
+                <div class="col-lg-4 mb-24">
+                    <div class="bb-cart-sidebar-block" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                        <div class="bb-sb-title">
+                            <h3>{% trans 'Place Order' %}</h3>
+                        </div>
+                        <span style="font-size: 11px;color: red;font-weight: 600;">*{% trans 'Please confirm address before placing order' %}</span>
+                        <form method="POST" id="place-order-ajax" action="" style="border: 1px solid #eee; border-radius: 20px; padding: 30px;">
+                            {% csrf_token %}
+                            <div class="form-group mb-3">
+                                <label for="full_name">{% trans 'Full Name' %}</label>
+                                <input type="text" class="form-control" name="full_name" id="full_name" placeholder="{% trans 'Enter Your Full Name' %}" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="email">{% trans 'Email' %}</label>
+                                <input type="email" class="form-control" name="email" id="email" placeholder="{% trans 'Enter Your Email' %}" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="phone">{% trans 'Phone Number' %}</label>
+                                <input type="text" class="form-control" name="phone" id="phone" placeholder="{% trans 'Enter Your Phone Number' %}" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="city">{% trans 'City' %}</label>
+                                <select class="form-control" id="city" name="city" required>
+                                    <option value="" selected>{% trans 'Choose city' %}</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="district">{% trans 'District' %}</label>
+                                <select class="form-control" id="district" name="district" required>
+                                    <option value="" selected>{% trans 'Choose district' %}</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="ward">{% trans 'Ward' %}</label>
+                                <select class="form-control" id="ward" name="ward" required>
+                                    <option value="" selected>{% trans 'Choose ward' %}</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="address">{% trans 'Address' %}</label>
+                                <input type="text" class="form-control" name="address" id="address" placeholder="{% trans 'Enter Your Address...' %}" required>
+                            </div>
+                            <div class="form-group">
+                                <button class="bb-btn-2" type="submit">{% trans 'Place Order' %}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-8 mb-24">
+                    <div class="bb-cart-table" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>{% trans 'Product' %}</th>
+                                    <th>{% trans 'Price' %}</th>
+                                    <th>{% trans 'Quality' %}</th>
+                                    <th>{% trans 'Total' %}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product_id, item in cart_data.items %}
+                                <tr data-product="{{ product_id }}">
+                                    <td>
+                                        <a href="javascript:void(0)">
+                                            <div class="Product-cart">
+                                                <img src="{{ item.image }}" alt="{{ item.title }}">
+                                                <span>{{ item.title }}</span>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <span class="price">{{ item.price|floatformat:0|intcomma:False }}đ</span>
+                                    </td>
+                                    <td>
+                                        <div class="qty-plus-minus">
+                                            <input class="qty-input product-quantity-{{ product_id }}" type="text" name="bb-qtybtn" value="{{ item.qty }}">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="subtotal">{{ item.subtotal|floatformat:0|intcomma:False }}đ</span>
+                                    </td>
+                                    <td>
+                                        <div class="pro-remove">
+                                            <a href="javascript:void(0)" class="delete-product" data-product="{{ product_id }}">
+                                                <i class="ri-delete-bin-line"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+
+                                    <input type="hidden" class="item-title-{{ product_id }}" value="{{ item.title }}">
+                                    <input type="hidden" class="item-price-{{ product_id }}" value="{{ item.price|floatformat:0 }}">
+                                    <input type="hidden" class="item-qty-{{ product_id }}" value="{{ item.qty }}">
+                                    <input type="hidden" class="item-subtotal-{{ product_id }}" value="{{ item.subtotal }}">
+
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tr style="background-color: #eee;">
+                                <td colspan="3">
+                                    <strong style="float: right;">{% trans 'Total Amount' %}</strong>
+                                </td>
+                                <td colspan="2">
+                                    <input type="hidden" class="total_amount" value="{{ cart_total_amount|floatformat:0|intcomma:False }}">
+                                    <strong>{{ cart_total_amount|floatformat:0|intcomma:False }}đ</strong>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+	var citis = document.getElementById("city");
+    var districts = document.getElementById("district");
+    var wards = document.getElementById("ward");
+    var Parameter = {
+    url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json", 
+    method: "GET", 
+    responseType: "application/json", 
+    };
+    var promise = axios(Parameter);
+    promise.then(function (result) {
+    renderCity(result.data);
+    });
+
+    function renderCity(data) {
+    for (const x of data) {
+        citis.options[citis.options.length] = new Option(x.Name, x.Name);
+    }
+    citis.onchange = function () {
+        district.length = 1;
+        ward.length = 1;
+        if(this.value != ""){
+        const result = data.filter(n => n.Name === this.value);
+
+        for (const k of result[0].Districts) {
+            district.options[district.options.length] = new Option(k.Name, k.Name);
+        }
+        }
+    };
+    district.onchange = function () {
+        ward.length = 1;
+        const dataCity = data.filter((n) => n.Name === citis.value);
+        if (this.value != "") {
+        const dataWards = dataCity[0].Districts.filter(n => n.Name === this.value)[0].Wards;
+
+        for (const w of dataWards) {
+            wards.options[wards.options.length] = new Option(w.Name, w.Name);
+        }
+        }
+    };
+    }
+	</script>
+{% endblock content %}

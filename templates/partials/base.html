@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+{% load i18n %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Meta -->
+    {% block meta_header %}
+        
+    {% endblock meta_header %}
+
+    <!-- Site Favicon -->
+    <link rel="icon" href="{% static 'assets/img/logo/logo.png' %}" type="image/x-icon">
+
+    <!-- Css All Plugins Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/remixicon.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/swiper-bundle.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/slick.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/jquery-range-ui.css' %}">
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+</head>
+
+<body>
+
+    <!-- Loader -->
+    <div class="bb-loader">
+        <img src="{% static 'assets/img/logo/loader.png' %}" alt="loader">
+        <span class="loader"></span>
+    </div>
+
+    <!-- Header -->
+    <header class="bb-header">
+        <div class="top-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="inner-top-header">
+                            <div class="col-left-bar">
+                                <a href="{% url 'core:product-list' %}">Flash sale 10% off all products</a>
+                            </div>
+                            <div class="col-right-bar">
+                                <div class="cols">
+                                    <a href="{% url 'core:contact-us' %}">Help?</a>
+                                </div>
+                                <div class="cols">
+                                    {% get_current_language as CURRENT_LANGUAGE %}
+                                    {% get_available_languages as AVAILABLE_LANGUAGES %}
+                                    {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+                                    <div class="custom-dropdown">
+                                        <a class="bb-dropdown-toggle" href="javascript:void(0)">Language</a>
+                                        <ul class="dropdown">
+                                            {% for language in languages %}
+                                            <li>
+                                                <a class="{% if language.code == CURRENT_LANGUAGE %}active{% endif %}" href="{% if language.code == 'vi' %}/{% else %}/{{ language.code }}/{% endif %}">{{ language.name_local }}</a>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="inner-bottom-header">
+                            <div class="cols bb-logo-detail">
+                                <!-- Header Logo Start -->
+                                <div class="header-logo">
+                                    <a href="{% url 'core:index' %}">
+                                        <img src="{% static 'assets/img/logo/logo.png' %}" alt="logo" class="light">
+                                    </a>
+                                </div>
+                                <!-- Header Logo End -->
+                                <a href="javascript:void(0)" class="bb-sidebar-toggle bb-category-toggle">
+                                    <svg class="svg-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M384 928H192a96 96 0 0 1-96-96V640a96 96 0 0 1 96-96h192a96 96 0 0 1 96 96v192a96 96 0 0 1-96 96zM192 608a32 32 0 0 0-32 32v192a32 32 0 0 0 32 32h192a32 32 0 0 0 32-32V640a32 32 0 0 0-32-32H192zM784 928H640a96 96 0 0 1-96-96V640a96 96 0 0 1 96-96h192a96 96 0 0 1 96 96v144a32 32 0 0 1-64 0V640a32 32 0 0 0-32-32H640a32 32 0 0 0-32 32v192a32 32 0 0 0 32 32h144a32 32 0 0 1 0 64zM384 480H192a96 96 0 0 1-96-96V192a96 96 0 0 1 96-96h192a96 96 0 0 1 96 96v192a96 96 0 0 1-96 96zM192 160a32 32 0 0 0-32 32v192a32 32 0 0 0 32 32h192a32 32 0 0 0 32-32V192a32 32 0 0 0-32-32H192zM832 480H640a96 96 0 0 1-96-96V192a96 96 0 0 1 96-96h192a96 96 0 0 1 96 96v192a96 96 0 0 1-96 96zM640 160a32 32 0 0 0-32 32v192a32 32 0 0 0 32 32h192a32 32 0 0 0 32-32V192a32 32 0 0 0-32-32H640z" />
+                                    </svg>
+                                </a>
+                            </div>
+                            <div class="cols">
+                                <div class="header-search">
+                                    <form class="bb-btn-group-form" action="{% url 'core:search' %}" method="GET">
+                                        <div class="inner-select">
+                                            <div class="custom-select">
+                                                <select name="cat" class="select-active">
+                                                    {% if c.id == cat_selected %}
+                                                        <option value="all" selected>{% trans 'All Categories' %}</option>
+                                                    {% else %}
+                                                        <option value="all">{% trans 'All Categories' %}</option>
+                                                    {% endif %}
+                                                    
+                                                    {% for c in categories %}
+                                                        {% if c.id == cat_selected %}
+                                                            <option value="{{ c.id }}" selected>{{ c.title }}</option>
+                                                        {% else %}
+                                                            <option value="{{ c.id }}">{{ c.title }}</option>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <input class="form-control bb-search-bar" placeholder="{% trans 'Search products...' %}"
+                                            type="text" name="q" value="{{ query }}">
+                                        <button class="submit" type="submit"><i class="ri-search-line"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="cols bb-icons">
+                                <div class="bb-flex-justify">
+                                    <div class="bb-header-buttons">
+                                        <div class="bb-acc-drop">
+                                            <a href="javascript:void(0)"
+                                                class="bb-header-btn bb-header-user dropdown-toggle bb-user-toggle"
+                                                title="Account">
+                                                <div class="header-icon">
+                                                    <svg class="svg-icon" viewBox="0 0 1024 1024" version="1.1"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M512.476 648.247c-170.169 0-308.118-136.411-308.118-304.681 0-168.271 137.949-304.681 308.118-304.681 170.169 0 308.119 136.411 308.119 304.681C820.594 511.837 682.645 648.247 512.476 648.247L512.476 648.247zM512.476 100.186c-135.713 0-246.12 109.178-246.12 243.381 0 134.202 110.407 243.381 246.12 243.381 135.719 0 246.126-109.179 246.126-243.381C758.602 209.364 648.195 100.186 512.476 100.186L512.476 100.186zM935.867 985.115l-26.164 0c-9.648 0-17.779-6.941-19.384-16.35-2.646-15.426-6.277-30.52-11.142-44.95-24.769-87.686-81.337-164.13-159.104-214.266-63.232 35.203-134.235 53.64-207.597 53.64-73.555 0-144.73-18.537-208.084-53.922-78 50.131-134.75 126.68-159.564 214.549 0 0-4.893 18.172-11.795 46.4-2.136 8.723-10.035 14.9-19.112 14.9L88.133 985.116c-9.415 0-16.693-8.214-15.47-17.452C91.698 824.084 181.099 702.474 305.51 637.615c58.682 40.472 129.996 64.267 206.966 64.267 76.799 0 147.968-23.684 206.584-63.991 124.123 64.932 213.281 186.403 232.277 329.772C952.56 976.901 945.287 985.115 935.867 985.115L935.867 985.115z" />
+                                                    </svg>
+                                                </div>
+                                                <div class="bb-btn-desc">
+                                                    {% if request.user.is_authenticated %}
+                                                        <span class="bb-btn-stitle">{{request.user.username}}</span>
+                                                    {% else %}
+                                                        <span class="bb-btn-title">{% trans 'Account' %}</span>
+                                                        <span class="bb-btn-stitle">{% trans 'Login' %}</span>
+                                                    {% endif %}
+                                                </div>
+                                            </a>
+                                            <ul class="bb-dropdown-menu">
+                                                {% if request.user.is_authenticated %}
+                                                    <li><a class="dropdown-item" href="{% url 'userauths:sign-out' %}">{% trans 'Sign out' %}</a></li>
+                                                {% else %}
+                                                    <li><a class="dropdown-item" href="{% url 'userauths:sign-up' %}">{% trans 'Register' %}</a></li>
+                                                    <li><a class="dropdown-item" href="{% url 'userauths:sign-in' %}">{% trans 'Login' %}</a></li>
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+                                        <a href="javascript:void(0)" class="bb-header-btn bb-cart-toggle" title="Cart">
+                                            <div class="header-icon">
+                                                <svg class="svg-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M351.552 831.424c-35.328 0-63.968 28.64-63.968 63.968 0 35.328 28.64 63.968 63.968 63.968 35.328 0 63.968-28.64 63.968-63.968C415.52 860.064 386.88 831.424 351.552 831.424L351.552 831.424 351.552 831.424zM799.296 831.424c-35.328 0-63.968 28.64-63.968 63.968 0 35.328 28.64 63.968 63.968 63.968 35.328 0 63.968-28.64 63.968-63.968C863.264 860.064 834.624 831.424 799.296 831.424L799.296 831.424 799.296 831.424zM862.752 799.456 343.264 799.456c-46.08 0-86.592-36.448-92.224-83.008L196.8 334.592 165.92 156.128c-1.92-15.584-16.128-28.288-29.984-28.288L95.2 127.84c-17.664 0-32-14.336-32-31.968 0-17.664 14.336-32 32-32l40.736 0c46.656 0 87.616 36.448 93.28 83.008l30.784 177.792 54.464 383.488c1.792 14.848 15.232 27.36 28.768 27.36l519.488 0c17.696 0 32 14.304 32 31.968S880.416 799.456 862.752 799.456L862.752 799.456zM383.232 671.52c-16.608 0-30.624-12.8-31.872-29.632-1.312-17.632 11.936-32.928 29.504-34.208l433.856-31.968c15.936-0.096 29.344-12.608 31.104-26.816l50.368-288.224c1.28-10.752-1.696-22.528-8.128-29.792-4.128-4.672-9.312-7.04-15.36-7.04L319.04 223.84c-17.664 0-32-14.336-32-31.968 0-17.664 14.336-31.968 32-31.968l553.728 0c24.448 0 46.88 10.144 63.232 28.608 18.688 21.088 27.264 50.784 23.52 81.568l-50.4 288.256c-5.44 44.832-45.92 81.28-92 81.28L385.6 671.424C384.8 671.488 384 671.52 383.232 671.52L383.232 671.52zM383.232 671.52" />
+                                                </svg>
+                                                <span class="main-label-note-new"></span>
+                                            </div>
+                                            <div class="bb-btn-desc">
+                                                <span class="bb-btn-title"><b class="bb-cart-count cart-items-count">{{ request.session.cart_data_obj|length }}</b> {% trans 'items' %}</span>
+                                                <span class="bb-btn-stitle">{% trans 'Cart' %}</span>
+                                            </div>
+                                        </a>
+                                        <a href="javascript:void(0)" class="bb-toggle-menu">
+                                            <div class="header-icon">
+                                                <i class="ri-menu-3-fill"></i>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bb-main-menu-desk">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="bb-inner-menu-desk">
+                            <a href="javascript:void(0)" class="bb-header-btn bb-sidebar-toggle bb-category-toggle">
+                                <svg class="svg-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M384 928H192a96 96 0 0 1-96-96V640a96 96 0 0 1 96-96h192a96 96 0 0 1 96 96v192a96 96 0 0 1-96 96zM192 608a32 32 0 0 0-32 32v192a32 32 0 0 0 32 32h192a32 32 0 0 0 32-32V640a32 32 0 0 0-32-32H192zM784 928H640a96 96 0 0 1-96-96V640a96 96 0 0 1 96-96h192a96 96 0 0 1 96 96v144a32 32 0 0 1-64 0V640a32 32 0 0 0-32-32H640a32 32 0 0 0-32 32v192a32 32 0 0 0 32 32h144a32 32 0 0 1 0 64zM384 480H192a96 96 0 0 1-96-96V192a96 96 0 0 1 96-96h192a96 96 0 0 1 96 96v192a96 96 0 0 1-96 96zM192 160a32 32 0 0 0-32 32v192a32 32 0 0 0 32 32h192a32 32 0 0 0 32-32V192a32 32 0 0 0-32-32H192zM832 480H640a96 96 0 0 1-96-96V192a96 96 0 0 1 96-96h192a96 96 0 0 1 96 96v192a96 96 0 0 1-96 96zM640 160a32 32 0 0 0-32 32v192a32 32 0 0 0 32 32h192a32 32 0 0 0 32-32V192a32 32 0 0 0-32-32H640z" />
+                                </svg>
+                            </a>
+                            <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <i class="ri-menu-2-line"></i>
+                            </button>
+                            <div class="bb-main-menu" id="navbarSupportedContent">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" href="{% url 'core:index' %}">{% trans 'Home' %}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {% if request.resolver_match.url_name == 'product-list' %}active{% endif %}" href="{% url 'core:product-list' %}">{% trans 'Products' %}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {% if request.resolver_match.url_name == 'about-us' %}active{% endif %}" href="{% url 'core:about-us' %}">{% trans 'About Us' %}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {% if request.resolver_match.url_name == 'contact-us' %}active{% endif %}" href="{% url 'core:contact-us' %}">
+                                            {% trans 'Contact Us' %}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bb-mobile-menu-overlay"></div>
+        <div id="bb-mobile-menu" class="bb-mobile-menu">
+            <div class="bb-menu-title">
+                <span class="menu_title">My Menu</span>
+                <button type="button" class="bb-close-menu">×</button>
+            </div>
+            <div class="bb-menu-inner">
+                <div class="bb-menu-content">
+                    <ul>
+                        <li>
+                            <a href="{% url 'core:index' %}">{% trans 'Home' %}</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'core:product-list' %}">{% trans 'Products' %}</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'core:about-us' %}">{% trans 'About Us' %}</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'core:contact-us' %}">{% trans 'Contact Us' %}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="header-res-lan-curr">
+                    <!-- Social Start -->
+                    <div class="header-res-social">
+                        <div class="header-top-social">
+                            <ul class="mb-0">
+                                <li class="list-inline-item">
+                                    <a href="#"><i class="ri-facebook-fill"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#"><i class="ri-twitter-fill"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#"><i class="ri-instagram-line"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#"><i class="ri-linkedin-fill"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Social End -->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Content -->
+    {% block content %}
+        
+    {% endblock content %}
+
+    <!-- Footer -->
+    <footer class="bb-footer margin-t-50">
+        <div class="footer-container">
+            <div class="footer-top padding-tb-50">
+                <div class="container">
+                    <div class="row m-minus-991" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                        <div class="col-sm-12 col-lg-3 bb-footer-cat">
+                            <div class="bb-footer-widget bb-footer-company">
+                                <img src="{% static 'assets/img/logo/logo.png' %}" class="bb-footer-logo" alt="footer logo">
+                                <img src="{% static 'assets/img/logo/logo-dark.png' %}" class="bb-footer-dark-logo" alt="footer logo">
+                                <p class="bb-footer-detail">{% trans 'We import full packages of healthcare products and functional foods from South Korea and distribute them wholesale and retail through official channels in Vietnam.' %}</p>
+                                <div class="bb-app-store">
+                                    <a href="javascript:void(0)" class="app-img">
+                                        <img src="{% static 'assets/img/app/android.png' %}" class="adroid" alt="apple">
+                                    </a>
+                                    <a href="javascript:void(0)" class="app-img">
+                                        <img src="{% static 'assets/img/app/apple.png' %}" class="apple" alt="apple">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-3 bb-footer-account">
+                            <div class="bb-footer-widget">
+                                <h4 class="bb-footer-heading">{% trans 'About' %}</h4>
+                                <div class="bb-footer-links bb-footer-dropdown">
+                                    <ul class="align-items-center">
+                                        <li class="bb-footer-link">
+                                            <a href="{% url 'core:about-us' %}">{% trans 'About us' %}</a>
+                                        </li>
+                                        <li class="bb-footer-link">
+                                            <a href="{% url 'core:contact-us' %}">{% trans 'Contact us' %}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-3 bb-footer-service">
+                            <div class="bb-footer-widget">
+                                <h4 class="bb-footer-heading">{% trans 'Explore' %}</h4>
+                                <div class="bb-footer-links bb-footer-dropdown">
+                                    <ul class="align-items-center">
+                                        <li class="bb-footer-link">
+                                            <a href="{% url 'core:product-list' %}">{% trans 'Products' %}</a>
+                                        </li>
+                                        <li class="bb-footer-link">
+                                            <a href="{% url 'core:place-order' %}">{% trans 'View Cart' %}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-3 bb-footer-cont-social">
+                            <div class="bb-footer-contact">
+                                <div class="bb-footer-widget">
+                                    <h4 class="bb-footer-heading">{% trans 'Contact' %}</h4>
+                                    <div class="bb-footer-links bb-footer-dropdown">
+                                        <ul class="align-items-center">
+                                            <li class="bb-footer-link bb-foo-location">
+                                                <p><i class="ri-map-pin-line" style="color: #6c7fd8"></i> {% trans 'Headquarters: 62 Nguyễn Bá Tuyển, Ward 12, Tân Bình District, Ho Chi Minh City' %}</p>
+                                            </li>
+                                            <li class="bb-footer-link bb-foo-location">
+                                                <p><i class="ri-map-pin-line" style="color: #6c7fd8"></i> {% trans 'Can Tho Branch: 82B Street No. 5, Area 2, Hong Phat Residential Area, An Binh Ward, Ninh Kieu District, Can Tho"' %}</p>
+                                            </li>
+                                            <li class="bb-footer-link bb-foo-call">
+                                                <span>
+                                                    <i class="ri-whatsapp-line"></i>
+                                                </span>
+                                                <a href="tel:(+84) 901 05 75 95">(+84) 901 05 75 95</a>
+                                            </li>
+                                            <li class="bb-footer-link bb-foo-mail">
+                                                <span>
+                                                    <i class="ri-mail-line"></i>
+                                                </span>
+                                                <a href="mailto:worldpalmsvn@gmail.com">worldpalmsvn@gmail.com</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bb-footer-social">
+                                <div class="bb-footer-widget">
+                                    <div class="bb-footer-links bb-footer-dropdown">
+                                        <ul class="align-items-center">
+                                            <li class="bb-footer-link">
+                                                <a href="javascript:void(0)"><i class="ri-facebook-fill"></i></a>
+                                            </li>
+                                            <li class="bb-footer-link">
+                                                <a href="javascript:void(0)"><i class="ri-twitter-fill"></i></a>
+                                            </li>
+                                            <li class="bb-footer-link">
+                                                <a href="javascript:void(0)"><i class="ri-linkedin-fill"></i></a>
+                                            </li>
+                                            <li class="bb-footer-link">
+                                                <a href="javascript:void(0)"><i class="ri-instagram-line"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="bb-bottom-info">
+                            <div class="footer-copy">
+                                <div class="footer-bottom-copy ">
+                                    <div class="bb-copy">Copyright © <span id="copyright_year"></span>
+                                        <a class="site-name" href="{% url 'core:index' %}">Worldpalms Vina</a> all rights reserved.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer-bottom-right">
+                                <div class="footer-bottom-payment d-flex justify-content-center">
+                                    <div class="payment-link">
+                                        <img src="{% static 'assets/img/payment/payment.png' %}" alt="payment">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart sidebar -->
+    <div class="bb-side-cart-overlay"></div>
+    <div class="bb-side-cart">
+        <div class="row h-full">
+            <div class="col-md-12 col-12">
+                <div class="bb-inner-cart" id="cart-store">
+                    <div class="bb-top-contact">
+                        <div class="bb-cart-title">
+                            <h4>{% trans 'My cart' %}</h4>
+                            <a href="javascript:void(0)" class="bb-cart-close" title="Close Cart"></a>
+                        </div>
+                    </div>
+                    <div class="bb-cart-box item">
+                        <ul class="bb-cart-items">
+                            {% for product_id, item in cart_data.items %}
+                            <li class="cart-sidebar-list">
+                                <a href="javascript:void(0)" class="cart-remove-item delete-product" data-product="{{ product_id }}"><i class="ri-close-line"></i></a>
+                                <a href="javascript:void(0)" class="bb-cart-pro-img">
+                                    <img src="{{ item.image }}" alt="product image">
+                                </a>
+                                <div class="bb-cart-contact">
+                                    <a href="{% url 'core:product-detail' item.pid %}" class="bb-cart-sub-title">{{ item.title }}</a>
+                                    <span class="cart-price">
+                                        <span class="new-price">{{ item.qty }} x {{ item.price|floatformat:0|intcomma:False }}đ</span>
+                                    </span>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="bb-bottom-cart">
+                        <div class="cart-sub-total">
+                            <table class="table cart-table">
+                                <tbody>
+                                    <tr>
+                                        <td class="title">{% trans 'Total' %} :</td>
+                                        <td class="price">{{ cart_total_amount|floatformat:0|intcomma:False }}đ</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="cart-btn">
+                            <a href="{% url 'core:place-order' %}" class="bb-btn-2">{% trans 'Place Order' %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Popup -->
+    <div class="bb-category-sidebar">
+        <div class="bb-category-overlay"></div>
+        <div class="category-sidebar">
+            <button type="button" class="bb-category-close" title="Close"></button>
+            <div class="container-fluid">
+                <div class="row mb-minus-24">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="sub-title">
+                                    <h4>{% trans 'List Products' %}</h4>
+                                </div>
+                            </div>
+                            {% for p in products %}
+                            <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-24">
+                                <div class="bb-category-cart">
+                                    <a href="javascript:void(0)" class="pro-img">
+                                        <img src="{{ p.image.url }}" alt="{{ p.title }}">
+                                    </a>
+                                    <div class="side-contact">
+                                        <h4 class="bb-pro-title"><a href="{% url 'core:product-detail' p.pid %}">{{ p.title }}</a></h4>
+                                        <div class="inner-price">
+                                            <span class="new-price">{{ p.price|floatformat:0|intcomma:False }}đ</span>
+                                            <span class="old-price">{{ p.old_price|floatformat:0|intcomma:False }}đ</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="bb-pro-pagination">
+                            {% if total_products > 10 %}
+                                <ul>
+                                    {% if products.has_previous %}
+                                        <li>
+                                            <a href="?page={{ products.previous_page_number }}" class="next">« {% trans 'Previous' %}</a>
+                                        </li>
+
+                                        {% if products.number > 3 %}
+                                            <li>
+                                                <a href="?page=1">1</a>
+                                            </li>
+                                            {% if products.number > 4 %}
+                                                <li>
+                                                    <a href="javascript:void(0)">...</a>
+                                                </li>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+
+                                    {% for num in products.paginator.page_range %}
+                                        {% if products.number == num %}
+                                            <li class="active">
+                                                <a href="?page={{ num }}">{{ num }}</a>
+                                            </li>
+                                        {% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
+                                    <li>
+                                                <a href="?page={{ num }}">{{ num }}</a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% if products.has_next %}
+                                        {% if products.number < products.paginator.num_pages|add:'-3' %}
+                                        <li>
+                                                <a href="javascript:void(0)">...</a>
+                                            </li>
+                                            <li>
+                                                <a href="?page={{ products.paginator.num_pages }}">{{ products.paginator.num_pages }}</a>
+                                            </li>
+                                        {% elif products.number < products.paginator.num_pages|add:'-2' %}
+                                            <li>
+                                                <a href="?page={{ products.paginator.num_pages }}">{{ products.paginator.num_pages }}</a>
+                                            </li>
+                                        {% endif %}
+
+                                        <li>
+                                            <a href="?page={{ products.next_page_number }}" class="next">{% trans 'Next' %} »</i></a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick view Modal -->
+    <div class="modal fade quickview-modal" id="bry_quickview_modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="qty-close" data-bs-dismiss="modal" aria-label="Close"
+                    title="Close"></button>
+                <div class="modal-body">
+                    <div class="row mb-minus-24">
+                        <div class="col-md-5 col-sm-12 col-xs-12 mb-24">
+                            <div class="single-pro-img single-pro-img-no-sidebar">
+                                <div class="single-product-scroll">
+                                    <div class="single-slide zoom-image-hover">
+                                        <img class="img-responsive" src="{% static 'assets/img/product/1.jpg' %}" alt="product-img-1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7 col-sm-12 col-xs-12 mb-24">
+                            <div class="quickview-pro-content">
+                                <h5 class="bb-quick-title">
+                                    <a href="product-left-sidebar.html">Mix nuts premium quality organic dried fruit
+                                        250g pack</a>
+                                </h5>
+                                <div class="bb-pro-rating">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-line"></i>
+                                </div>
+                                <div class="bb-quickview-desc">Lorem Ipsum is simply dummy text of the printing and
+                                    typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
+                                    since the 1900s,</div>
+                                <div class="bb-quickview-price">
+                                    <span class="new-price">$50.00</span>
+                                    <span class="old-price">$62.00</span>
+                                </div>
+                                <div class="bb-pro-variation">
+                                    <ul>
+                                        <li class="active">
+                                            <a href="javascript:void(0)" class="bb-opt-sz" data-tooltip="Small">250g</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)" class="bb-opt-sz"
+                                                data-tooltip="Medium">500g</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)" class="bb-opt-sz" data-tooltip="Large">1kg</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)" class="bb-opt-sz"
+                                                data-tooltip="Extra Large">2kg</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="bb-quickview-qty">
+                                    <div class="qty-plus-minus">
+                                        <input class="qty-input" type="text" name="bb-qtybtn" value="1">
+                                    </div>
+                                    <div class="bb-quickview-cart">
+                                        <button type="button" class="bb-btn-1">
+                                            <i class="ri-shopping-bag-line"></i>Add To Cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tools Sidebar -->
+    <div class="bb-tools-sidebar-overlay"></div>
+    <div class="bb-tools-sidebar">
+        <!-- <a href="javascript:void(0)" class="bb-tools-sidebar-toggle in-out">
+            <i class="ri-settings-fill"></i>
+        </a> -->
+        <div class="bb-bar-title">
+            <h6>Tools</h6>
+            <a href="#" class="close-tools"><i class="ri-close-line"></i></a>
+        </div>
+        <div class="bb-tools-detail">
+            <div class="bb-tools-block">
+                <h3>Select Color</h3>
+                <ul class="bb-color">
+                    <li class="color-primary active-variant"></li>
+                    <li class="color-1"></li>
+                    <li class="color-2"></li>
+                    <li class="color-3"></li>
+                    <li class="color-4"></li>
+                    <li class="color-5"></li>
+                    <li class="color-6"></li>
+                    <li class="color-7"></li>
+                    <li class="color-8"></li>
+                    <li class="color-9"></li>
+                </ul>
+            </div>
+            <div class="bb-tools-block">
+                <h3>Dark Modes</h3>
+                <div class="bb-tools-dark">
+                    <div class="mode-primary bb-dark-item mode active-dark light" data-bb-mode-tool="light">
+                        <img src="{% static 'assets/img/tools/light.png' %}" alt="light">
+                        <p>Light</p>
+                    </div>
+                    <div class="bb-dark-item mode dark" data-bb-mode-tool="dark">
+                        <img src="{% static 'assets/img/tools/dark.png' %}" alt="dark">
+                        <p>Dark</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bb-tools-block">
+                <h3>RTL Modes</h3>
+                <div class="bb-tools-rtl">
+                    <div class="bb-tools-item ltr active-rtl" data-bb-mode-tool="ltr">
+                        <img src="{% static 'assets/img/tools/ltr.png' %}" alt="ltr">
+                        <p>LTR</p>
+                    </div>
+                    <div class="bb-tools-item rtl" data-bb-mode-tool="rtl">
+                        <img src="{% static 'assets/img/tools/rtl.png' %}" alt="rtl">
+                        <p>RTL</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bb-tools-block">
+                <h3>Box Design</h3>
+                <div class="bb-tools-box">
+                    <div class="bb-tools-item default active-box" data-bb-mode-tool="default">
+                        <img src="{% static 'assets/img/tools/box-0.png' %}" alt="box-0">
+                        <p>Default</p>
+                    </div>
+                    <div class="bb-tools-item box-1" data-bb-mode-tool="box-1">
+                        <img src="{% static 'assets/img/tools/box-1.png' %}" alt="box-1">
+                        <p>Box-1</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to top  -->
+    <a href="#Top" class="back-to-top result-placeholder">
+        <i class="ri-arrow-up-line"></i>
+        <div class="back-to-top-wrap active-progress">
+            <svg viewBox="-1 -1 102 102">
+                <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"></path>
+            </svg>
+        </div>
+    </a>
+
+    <!-- Plugins -->
+    <script src="{% static 'assets/js/vendor/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/jquery.min.js' %}"></script>
+    <!-- <script src="{% static 'assets/js/vendor/jquery.zoom.min.js' %}"></script> -->
+    <script src="{% static 'assets/js/vendor/jquery.zoom.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/aos.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/smoothscroll.min.js' %}"></script>
+    <!-- <script src="{% static 'assets/js/vendor/countdownTimer.js' %}"></script> -->
+    <script src="{% static 'assets/js/vendor/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/slick.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/jquery-range-ui.min.js' %}"></script>
+
+    <!-- main-js -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+    <script src="{% static 'assets/js/function.js' %}"></script>
+</body>
+
+</html>
