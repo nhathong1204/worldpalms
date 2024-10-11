@@ -238,7 +238,7 @@
             <div class="footer-top padding-tb-50">
                 <div class="container">
                     <div class="row m-minus-991" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                        <div class="col-sm-12 col-lg-3 bb-footer-cat">
+                        <div class="col-sm-12 col-lg-5 bb-footer-cat">
                             <div class="bb-footer-widget bb-footer-company">
                                 <img src="{% static 'assets/img/logo/logo.png' %}" class="bb-footer-logo" alt="footer logo">
                                 <img src="{% static 'assets/img/logo/logo-dark.png' %}" class="bb-footer-dark-logo" alt="footer logo">
@@ -253,7 +253,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-lg-3 bb-footer-account">
+                        <div class="col-sm-12 col-lg-2 bb-footer-account">
                             <div class="bb-footer-widget">
                                 <h4 class="bb-footer-heading">{% trans 'About' %}</h4>
                                 <div class="bb-footer-links bb-footer-dropdown">
@@ -264,26 +264,14 @@
                                         <li class="bb-footer-link">
                                             <a href="{% url 'core:contact-us' %}">{% trans 'Contact us' %}</a>
                                         </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-3 bb-footer-service">
-                            <div class="bb-footer-widget">
-                                <h4 class="bb-footer-heading">{% trans 'Explore' %}</h4>
-                                <div class="bb-footer-links bb-footer-dropdown">
-                                    <ul class="align-items-center">
                                         <li class="bb-footer-link">
                                             <a href="{% url 'core:product-list' %}">{% trans 'Products' %}</a>
                                         </li>
-                                        <li class="bb-footer-link">
-                                            <a href="{% url 'core:place-order' %}">{% trans 'View Cart' %}</a>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-lg-3 bb-footer-cont-social">
+                        <div class="col-sm-12 col-lg-5 bb-footer-cont-social">
                             <div class="bb-footer-contact">
                                 <div class="bb-footer-widget">
                                     <h4 class="bb-footer-heading">{% trans 'Contact' %}</h4>
@@ -360,56 +348,6 @@
         </div>
     </footer>
 
-    <!-- Cart sidebar -->
-    <div class="bb-side-cart-overlay"></div>
-    <div class="bb-side-cart">
-        <div class="row h-full">
-            <div class="col-md-12 col-12">
-                <div class="bb-inner-cart" id="cart-store">
-                    <div class="bb-top-contact">
-                        <div class="bb-cart-title">
-                            <h4>{% trans 'My cart' %}</h4>
-                            <a href="javascript:void(0)" class="bb-cart-close" title="Close Cart"></a>
-                        </div>
-                    </div>
-                    <div class="bb-cart-box item">
-                        <ul class="bb-cart-items">
-                            {% for product_id, item in cart_data.items %}
-                            <li class="cart-sidebar-list">
-                                <a href="javascript:void(0)" class="cart-remove-item delete-product" data-product="{{ product_id }}"><i class="ri-close-line"></i></a>
-                                <a href="javascript:void(0)" class="bb-cart-pro-img">
-                                    <img src="{{ item.image }}" alt="product image">
-                                </a>
-                                <div class="bb-cart-contact">
-                                    <a href="{% url 'core:product-detail' item.pid %}" class="bb-cart-sub-title">{{ item.title }}</a>
-                                    <span class="cart-price">
-                                        <span class="new-price">{{ item.qty }} x {{ item.price|floatformat:0|intcomma:False }}đ</span>
-                                    </span>
-                                </div>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <div class="bb-bottom-cart">
-                        <div class="cart-sub-total">
-                            <table class="table cart-table">
-                                <tbody>
-                                    <tr>
-                                        <td class="title">{% trans 'Total' %} :</td>
-                                        <td class="price">{{ cart_total_amount|floatformat:0|intcomma:False }}đ</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="cart-btn">
-                            <a href="{% url 'core:place-order' %}" class="bb-btn-2">{% trans 'Place Order' %}</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Category Popup -->
     <div class="bb-category-sidebar">
         <div class="bb-category-overlay"></div>
@@ -432,10 +370,6 @@
                                     </a>
                                     <div class="side-contact">
                                         <h4 class="bb-pro-title"><a href="{% url 'core:product-detail' p.pid %}">{{ p.title }}</a></h4>
-                                        <div class="inner-price">
-                                            <span class="new-price">{{ p.price|floatformat:0|intcomma:False }}đ</span>
-                                            <span class="old-price">{{ p.old_price|floatformat:0|intcomma:False }}đ</span>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -496,147 +430,6 @@
                                 </ul>
                             {% endif %}
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Quick view Modal -->
-    <div class="modal fade quickview-modal" id="bry_quickview_modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <button type="button" class="qty-close" data-bs-dismiss="modal" aria-label="Close"
-                    title="Close"></button>
-                <div class="modal-body">
-                    <div class="row mb-minus-24">
-                        <div class="col-md-5 col-sm-12 col-xs-12 mb-24">
-                            <div class="single-pro-img single-pro-img-no-sidebar">
-                                <div class="single-product-scroll">
-                                    <div class="single-slide zoom-image-hover">
-                                        <img class="img-responsive" src="{% static 'assets/img/product/1.jpg' %}" alt="product-img-1">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-7 col-sm-12 col-xs-12 mb-24">
-                            <div class="quickview-pro-content">
-                                <h5 class="bb-quick-title">
-                                    <a href="product-left-sidebar.html">Mix nuts premium quality organic dried fruit
-                                        250g pack</a>
-                                </h5>
-                                <div class="bb-pro-rating">
-                                    <i class="ri-star-fill"></i>
-                                    <i class="ri-star-fill"></i>
-                                    <i class="ri-star-fill"></i>
-                                    <i class="ri-star-fill"></i>
-                                    <i class="ri-star-line"></i>
-                                </div>
-                                <div class="bb-quickview-desc">Lorem Ipsum is simply dummy text of the printing and
-                                    typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
-                                    since the 1900s,</div>
-                                <div class="bb-quickview-price">
-                                    <span class="new-price">$50.00</span>
-                                    <span class="old-price">$62.00</span>
-                                </div>
-                                <div class="bb-pro-variation">
-                                    <ul>
-                                        <li class="active">
-                                            <a href="javascript:void(0)" class="bb-opt-sz" data-tooltip="Small">250g</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)" class="bb-opt-sz"
-                                                data-tooltip="Medium">500g</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)" class="bb-opt-sz" data-tooltip="Large">1kg</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)" class="bb-opt-sz"
-                                                data-tooltip="Extra Large">2kg</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="bb-quickview-qty">
-                                    <div class="qty-plus-minus">
-                                        <input class="qty-input" type="text" name="bb-qtybtn" value="1">
-                                    </div>
-                                    <div class="bb-quickview-cart">
-                                        <button type="button" class="bb-btn-1">
-                                            <i class="ri-shopping-bag-line"></i>Add To Cart
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tools Sidebar -->
-    <div class="bb-tools-sidebar-overlay"></div>
-    <div class="bb-tools-sidebar">
-        <!-- <a href="javascript:void(0)" class="bb-tools-sidebar-toggle in-out">
-            <i class="ri-settings-fill"></i>
-        </a> -->
-        <div class="bb-bar-title">
-            <h6>Tools</h6>
-            <a href="#" class="close-tools"><i class="ri-close-line"></i></a>
-        </div>
-        <div class="bb-tools-detail">
-            <div class="bb-tools-block">
-                <h3>Select Color</h3>
-                <ul class="bb-color">
-                    <li class="color-primary active-variant"></li>
-                    <li class="color-1"></li>
-                    <li class="color-2"></li>
-                    <li class="color-3"></li>
-                    <li class="color-4"></li>
-                    <li class="color-5"></li>
-                    <li class="color-6"></li>
-                    <li class="color-7"></li>
-                    <li class="color-8"></li>
-                    <li class="color-9"></li>
-                </ul>
-            </div>
-            <div class="bb-tools-block">
-                <h3>Dark Modes</h3>
-                <div class="bb-tools-dark">
-                    <div class="mode-primary bb-dark-item mode active-dark light" data-bb-mode-tool="light">
-                        <img src="{% static 'assets/img/tools/light.png' %}" alt="light">
-                        <p>Light</p>
-                    </div>
-                    <div class="bb-dark-item mode dark" data-bb-mode-tool="dark">
-                        <img src="{% static 'assets/img/tools/dark.png' %}" alt="dark">
-                        <p>Dark</p>
-                    </div>
-                </div>
-            </div>
-            <div class="bb-tools-block">
-                <h3>RTL Modes</h3>
-                <div class="bb-tools-rtl">
-                    <div class="bb-tools-item ltr active-rtl" data-bb-mode-tool="ltr">
-                        <img src="{% static 'assets/img/tools/ltr.png' %}" alt="ltr">
-                        <p>LTR</p>
-                    </div>
-                    <div class="bb-tools-item rtl" data-bb-mode-tool="rtl">
-                        <img src="{% static 'assets/img/tools/rtl.png' %}" alt="rtl">
-                        <p>RTL</p>
-                    </div>
-                </div>
-            </div>
-            <div class="bb-tools-block">
-                <h3>Box Design</h3>
-                <div class="bb-tools-box">
-                    <div class="bb-tools-item default active-box" data-bb-mode-tool="default">
-                        <img src="{% static 'assets/img/tools/box-0.png' %}" alt="box-0">
-                        <p>Default</p>
-                    </div>
-                    <div class="bb-tools-item box-1" data-bb-mode-tool="box-1">
-                        <img src="{% static 'assets/img/tools/box-1.png' %}" alt="box-1">
-                        <p>Box-1</p>
                     </div>
                 </div>
             </div>

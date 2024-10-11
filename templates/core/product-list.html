@@ -75,14 +75,7 @@
                                         </div>
                                         <h4 class="bb-pro-title"><a href="{% url 'core:product-detail' p.pid %}">{{ p.title }}</a>
                                         </h4>
-                                        <p>{{ product.description|safe|truncatechars:250 }}</p>
-                                        <div class="bb-price">
-                                            <div class="inner-price">
-                                                <input type="hidden" class="current-product-price-{{ p.id }}" value="{{ p.price|floatformat:0 }}" />
-                                                <span class="new-price">{{ p.price|floatformat:0|intcomma:False }}đ</span>
-                                                <span class="old-price">{{ p.old_price|floatformat:0|intcomma:False }}đ</span>
-                                            </div>
-                                        </div>
+                                        <p>{{ p.description|safe|truncatechars:100 }}</p>
                                     </div>
                                 </div>
                             </div>

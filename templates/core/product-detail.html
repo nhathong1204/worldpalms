@@ -61,19 +61,7 @@
                                     <div class="bb-sub-title">
                                         <h4>{{ product.title }}</h4>
                                     </div>
-                                    <p>{{ product.description|safe|truncatechars:250 }}</p>
-                                    <div class="bb-single-price-wrap">
-                                        <div class="bb-single-price">
-                                            <div class="price">
-                                                <h5>
-                                                    <input type="hidden" class="current-product-price-{{ product.id }}" value="{{ product.price|floatformat:0 }}" />
-                                                    <span>{{ product.price|floatformat:0|intcomma:False }}</span>đ
-                                                    <span class="sale_off">{{ product.get_pecentage|floatformat:0 }}% Off</span>
-                                                    <span class="origin_price">{{ product.old_price|floatformat:0|intcomma:False }}đ</span>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <!-- <p>{{ product.description|safe|truncatechars:250 }}</p> -->
                                     <div class="bb-single-pro-tab">
                                         <div class="bb-pro-tab">
                                             <ul class="bb-pro-tab-nav nav">
@@ -155,14 +143,6 @@
                                         </div>
                                         <h4 class="bb-pro-title"><a href="{% url 'core:product-detail' p.pid %}">{{ p.title }}</a>
                                         </h4>
-                                        <div class="bb-price">
-                                            <div class="inner-price">
-                                                <input type="hidden" class="current-product-price-{{ p.id }}" value="{{ p.price|floatformat:0 }}" />
-                                                <span class="new-price">{{ p.price|floatformat:0|intcomma:False }}đ</span>
-                                                <span class="old-price">{{ p.old_price|floatformat:0|intcomma:False }}đ</span>
-                                            </div>
-                                            <!-- <span class="last-items">1 Pack</span> -->
-                                        </div>
                                     </div>
                                 </div>
                             </div>

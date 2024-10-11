@@ -17,7 +17,7 @@ urlpatterns = [
     path('delete-from-cart/', views.delete_item_from_cart, name='delete-from-cart'),
     
     # cart page
-    path('place-order/', views.cart_view, name='place-order'),
+    # path('place-order/', views.cart_view, name='place-order'),
     
     # update cart
     path('update-cart/', views.update_cart, name='update-cart'),
