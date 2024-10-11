@@ -6,7 +6,7 @@
     <title>{% trans 'Product Detail' %} - Worldpalms Vina</title>
     <meta property="og:title" content="{% trans 'Product Detail' %} - Worldpalms Vina" />
     <meta property="og:description" content="{% trans 'We import full packages of healthcare products and functional foods from South Korea and distribute them wholesale and retail through official channels in Vietnam.' %}" />
-    <meta property="og:url" content="{% url 'core:product-detail' %}" />
+    <meta property="og:url" content="{% url 'core:product-detail' product.pid %}" />
     <meta property="og:image" content="{% static 'assets/img/logo/logo.png' %}" />
 {% endblock meta_header %}
 {% block content %}
