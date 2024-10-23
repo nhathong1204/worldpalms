@@ -70,12 +70,8 @@
                                         </a>
                                     </div>
                                     <div class="bb-pro-contact">
-                                        <div class="bb-pro-subtitle">
-                                            <a href="javascript:void(0)">{{ p.category.title }}</a>
-                                        </div>
                                         <h4 class="bb-pro-title"><a href="{% url 'core:product-detail' p.pid %}">{{ p.title }}</a>
                                         </h4>
-                                        <p>{{ p.description|safe|truncatechars:100 }}</p>
                                     </div>
                                 </div>
                             </div>

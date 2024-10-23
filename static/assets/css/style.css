@@ -1149,7 +1149,7 @@ select {
           align-items: center;
 }
 .bottom-header .inner-bottom-header .header-logo img {
-  width: 125px;
+  width: 50px;
 }
 .bottom-header .inner-bottom-header .header-logo .dark {
   display: none;

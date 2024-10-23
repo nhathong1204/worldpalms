@@ -61,45 +61,6 @@
                                     <div class="bb-sub-title">
                                         <h4>{{ product.title }}</h4>
                                     </div>
-                                    <!-- <p>{{ product.description|safe|truncatechars:250 }}</p> -->
-                                    <div class="bb-single-pro-tab">
-                                        <div class="bb-pro-tab">
-                                            <ul class="bb-pro-tab-nav nav">
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" data-bs-toggle="tab" href="#detail">{% trans 'Description' %}</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" data-bs-toggle="tab" href="#information">{% trans 'Additional Information' %}</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" data-bs-toggle="tab" href="#reviews">{% trans 'Nutritional Value' %}</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="tab-content">
-                                            <div class="tab-pane fade show active" id="detail">
-                                                <div class="bb-inner-tabs">
-                                                    <div class="bb-details">
-                                                        <div class="text_content">{{ product.description|safe }}</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane fade" id="information">
-                                                <div class="bb-inner-tabs">
-                                                    <div class="information">
-                                                        <div class="text_content">{{ product.additional_information|safe }}</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane fade" id="reviews">
-                                                <div class="bb-inner-tabs">
-                                                    <div class="bb-reviews">
-                                                        <div class="text_content">{{ product.nutritional_value|safe }}</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
