@@ -17,7 +17,7 @@ def product_list_view(request):
     product_list = Product.objects.filter(product_status="published").order_by('-id')
     total_products = product_list.count()
     page = request.GET.get('page',1)
-    paginator = Paginator(product_list,10)
+    paginator = Paginator(product_list,20)
     try:
         products = paginator.page(page)
     except EmptyPage:
@@ -162,7 +162,7 @@ def search_view(request):
         product_list = Product.objects.filter(title__icontains=query,product_status="published",category=category).order_by('-date')
     total_products = product_list.count()
     page = request.GET.get('page',1)
-    paginator = Paginator(product_list,10)
+    paginator = Paginator(product_list,20)
     try:
         products = paginator.page(page)
     except EmptyPage:
