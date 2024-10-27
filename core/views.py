@@ -33,7 +33,7 @@ def product_list_view(request):
 def product_detail_view(request, pid):
     product = Product.objects.get(pid=pid)
     
-    productRelated = Product.objects.filter(product_status="published", category=product.category).exclude(pid=pid)
+    productRelated = Product.objects.filter(product_status="published").exclude(pid=pid)
     p_image = product.p_images.all()
     context = {
         'product': product,
@@ -155,11 +155,7 @@ def delete_item_from_cart(request):
 
 def search_view(request):
     query = request.GET.get('q')
-    category = request.GET.get('cat')
-    if category == "all":
-        product_list = Product.objects.filter(title__icontains=query,product_status="published").order_by('-date')
-    else:
-        product_list = Product.objects.filter(title__icontains=query,product_status="published",category=category).order_by('-date')
+    product_list = Product.objects.filter(title__icontains=query,product_status="published").order_by('-date')
     total_products = product_list.count()
     page = request.GET.get('page',1)
     paginator = Paginator(product_list,20)
@@ -171,7 +167,6 @@ def search_view(request):
         products = paginator.page(1)
     context = {
         'products': products,
-        'category': category,
         'total_products': total_products,
         'query': query,
     }

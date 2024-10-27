@@ -97,25 +97,6 @@
                             <div class="cols">
                                 <div class="header-search">
                                     <form class="bb-btn-group-form" action="{% url 'core:search' %}" method="GET">
-                                        <div class="inner-select">
-                                            <div class="custom-select">
-                                                <select name="cat" class="select-active">
-                                                    {% if c.id == cat_selected %}
-                                                        <option value="all" selected>{% trans 'All Categories' %}</option>
-                                                    {% else %}
-                                                        <option value="all">{% trans 'All Categories' %}</option>
-                                                    {% endif %}
-                                                    
-                                                    {% for c in categories %}
-                                                        {% if c.id == cat_selected %}
-                                                            <option value="{{ c.id }}" selected>{{ c.title }}</option>
-                                                        {% else %}
-                                                            <option value="{{ c.id }}">{{ c.title }}</option>
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </div>
                                         <input class="form-control bb-search-bar" placeholder="{% trans 'Search products...' %}"
                                             type="text" name="q" value="{{ query }}">
                                         <button class="submit" type="submit"><i class="ri-search-line"></i></button>

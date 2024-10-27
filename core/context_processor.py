@@ -1,20 +1,13 @@
-from core.models import Product, Category
+from core.models import Product
 from django.db.models import Min,Max
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.sites.shortcuts import get_current_site
 
 def default(request):
     current_site = get_current_site(request)
-    print('>>>>>>>>current_site',current_site)
     query_selected = None
-    cat_selected = None
     if request.GET.get('q'):
         query_selected = request.GET.get('q')
-    if request.GET.get('cat'):
-        cat_selected = request.GET.get('cat')
-        if cat_selected != 'all':
-            cat_selected = int(cat_selected)
-    categories = Category.objects.all()
     
     product_list = Product.objects.filter(product_status="published").order_by('date')
     total_products = product_list.count()
@@ -40,8 +33,6 @@ def default(request):
         cart_data = ''
     
     return {
-        'categories': categories,
-        'cat_selected': cat_selected,
         'query_selected': query_selected,
         'products': products,
         'total_products': total_products,
