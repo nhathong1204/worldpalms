@@ -4253,6 +4253,7 @@ button.btn-close.qty_close {
   position: relative;
   border-bottom: 1px solid #eee;
   z-index: 4;
+  height: 305px;
 }
 .bb-pro-box .bb-pro-img .flags {
   -webkit-transition: all 0.3s ease-in-out;
@@ -4285,6 +4286,7 @@ button.btn-close.qty_close {
   transition: all 0.3s ease 0s;
   max-width: 100%;
   width: 304px;
+  height: 305px;
 }
 .bb-pro-box .bb-pro-img .inner-img img.hover-img {
   position: absolute;
