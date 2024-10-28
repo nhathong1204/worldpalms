@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 21:41+0700\n"
-"PO-Revision-Date: 2024-10-25 15:09+0000\n"
+"POT-Creation-Date: 2024-10-28 10:52+0700\n"
+"PO-Revision-Date: 2024-10-28 03:55+0000\n"
 "Last-Translator:   <admin@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -1302,14 +1302,14 @@ msgid "A short UUID field."
 msgstr ""
 
 #: templates/core/about_us.html:6 templates/core/about_us.html:7
-#: templates/partials/base.html:258
+#: templates/partials/base.html:230
 msgid "About"
 msgstr "Về Chúng Tôi"
 
 #: templates/core/about_us.html:8 templates/core/cart.html:8
 #: templates/core/contact_us.html:8 templates/core/index.html:8
 #: templates/core/product-detail.html:8 templates/core/product-list.html:8
-#: templates/core/search.html:8 templates/partials/base.html:245
+#: templates/core/search.html:8
 msgid ""
 "We import full packages of healthcare products and functional foods from "
 "South Korea and distribute them wholesale and retail through official "
@@ -1321,13 +1321,13 @@ msgstr ""
 #: templates/core/about_us.html:21 templates/core/cart.html:21
 #: templates/core/contact_us.html:21 templates/core/product-detail.html:21
 #: templates/core/product-list.html:21 templates/core/search.html:21
-#: templates/partials/base.html:161 templates/partials/base.html:191
+#: templates/partials/base.html:141 templates/partials/base.html:171
 #: templates/userauths/sign-in.html:13 templates/userauths/sign-up.html:13
 msgid "Home"
 msgstr "Trang Chủ"
 
-#: templates/core/about_us.html:23 templates/partials/base.html:167
-#: templates/partials/base.html:197
+#: templates/core/about_us.html:23 templates/partials/base.html:147
+#: templates/partials/base.html:177
 msgid "About Us"
 msgstr "Về Chúng Tôi"
 
@@ -1494,12 +1494,12 @@ msgid "Total Amount"
 msgstr "Tổng số tiền"
 
 #: templates/core/contact_us.html:6 templates/core/contact_us.html:7
-#: templates/partials/base.html:277
+#: templates/partials/base.html:249
 msgid "Contact"
 msgstr "Liên Hệ"
 
-#: templates/core/contact_us.html:23 templates/partials/base.html:171
-#: templates/partials/base.html:200
+#: templates/core/contact_us.html:23 templates/partials/base.html:151
+#: templates/partials/base.html:180
 msgid "Contact Us"
 msgstr "Liên Hệ"
 
@@ -1578,34 +1578,42 @@ msgstr "Danh sách <span>sản phẩm</span> liên quan"
 msgid "Shop Page"
 msgstr "Cửa Hàng"
 
-#: templates/partials/base.html:105 templates/partials/base.html:107
-msgid "All Categories"
-msgstr "Danh mục"
-
-#: templates/partials/base.html:120
+#: templates/partials/base.html:100
 msgid "Search products..."
 msgstr "Tìm kiếm sản phẩm..."
 
-#: templates/partials/base.html:164 templates/partials/base.html:194
-#: templates/partials/base.html:268
+#: templates/partials/base.html:144 templates/partials/base.html:174
+#: templates/partials/base.html:240
 msgid "Products"
 msgstr "Sản Phẩm"
 
-#: templates/partials/base.html:262
+#: templates/partials/base.html:225
+#, python-format
+msgid ""
+"We specialize in exporting 100%% organic products from Asia and Europe to "
+"countries around the world. Committed to quality and sustainability, we "
+"deliver safe, natural, and health-enhancing products to our customers."
+msgstr ""
+"Chúng tôi tự hào là đơn vị chuyên xuất khẩu những sản phẩm 100% organic từ "
+"Châu Á và Châu Âu đến khắp các quốc gia trên thế giới. Với cam kết về chất "
+"lượng và sự bền vững, chúng tôi mang đến cho khách hàng những sản phẩm an "
+"toàn, tự nhiên và tốt cho sức khỏe."
+
+#: templates/partials/base.html:234
 msgid "About us"
 msgstr "Về Chúng Tôi"
 
-#: templates/partials/base.html:265
+#: templates/partials/base.html:237
 msgid "Contact us"
 msgstr "Liên Hệ"
 
-#: templates/partials/base.html:281
+#: templates/partials/base.html:253
 msgid ""
 "Headquarters: 62 Nguyễn Bá Tuyển, Ward 12, Tân Bình District, Ho Chi Minh "
 "City"
 msgstr "Trụ sở chính: 62 Nguyễn Bá Tuyển, P.12, Q.Tân Bình, TP. Hồ Chí Minh"
 
-#: templates/partials/base.html:284
+#: templates/partials/base.html:256
 msgid ""
 "Can Tho Branch: 82B Street No. 5, Area 2, Hong Phat Residential Area, An "
 "Binh Ward, Ninh Kieu District, Can Tho\""
@@ -1613,15 +1621,15 @@ msgstr ""
 "Chi nhánh Cần Thơ: 82B Đường Số 5, KV.2, KDC Hồng Phát, P.An Bình, Q.Ninh "
 "Kiều, Cần Thơ"
 
-#: templates/partials/base.html:362
+#: templates/partials/base.html:334
 msgid "List Products"
 msgstr "Danh sách sản phẩm"
 
-#: templates/partials/base.html:385
+#: templates/partials/base.html:357
 msgid "Previous"
 msgstr ""
 
-#: templates/partials/base.html:427
+#: templates/partials/base.html:399
 msgid "Next"
 msgstr ""
 
@@ -1666,6 +1674,9 @@ msgstr ""
 #: worldpalms/settings.py:125
 msgid "English"
 msgstr ""
+
+#~ msgid "All Categories"
+#~ msgstr "Danh mục"
 
 #~ msgid "Our <span>Services</span>"
 #~ msgstr "<span>Dịch vụ</span> của chúng tôi"
